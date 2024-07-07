@@ -1,0 +1,33 @@
+function CreatePedScreen(first)
+    CreateThread(function()
+        local heading = GetEntityHeading(PlayerPedId())
+        SetFrontendActive(true)
+        ActivateFrontendMenu(GetHashKey("FE_MENU_VERSION_JOINING_SCREEN"), true, -1)
+        Wait(100)
+        SetMouseCursorVisibleInMenus(false)
+        PlayerPedPreview = ClonePed(PlayerPedId(), heading, true, false)
+        local x, y, z = table.unpack(GetEntityCoords(PlayerPedPreview))
+        SetEntityCoords(PlayerPedPreview, x, y, z - 10)
+        FreezeEntityPosition(PlayerPedPreview, true)
+        SetEntityVisible(PlayerPedPreview, false, false)
+        NetworkSetEntityInvisibleToNetwork(PlayerPedPreview, false)
+        Wait(200)
+        SetPedAsNoLongerNeeded(PlayerPedPreview)
+        GivePedToPauseMenu(PlayerPedPreview, 2)
+        SetPauseMenuPedLighting(true)
+        if first then
+            SetPauseMenuPedSleepState(false)
+            Wait(1000)
+            SetPauseMenuPedSleepState(true)
+        else
+            SetPauseMenuPedSleepState(true)
+        end
+    end)
+end
+
+RegisterCommand('screentake', function()
+    CreatePedScreen(true)
+    exports['screenshot-basic']:requestScreenshot(function(data)
+        print(data)
+    end)
+end, false)

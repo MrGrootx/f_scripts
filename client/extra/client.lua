@@ -1,9 +1,13 @@
 local cars = { "adder", "kuruma", "cheetah", "faggio" }
 
-RegisterCommand('carctm', function()
-   local getcar = cars[math.random(1, #cars)]
-   spawnCar(getcar)
-   notify("Car Spawned")
+RegisterCommand('textuitesttttt', function()
+   exports['g-textui']:showTextUI("textui_test_G", "Five Developments another file", "G")
+   Wait(3000)
+   exports['g-textui']:hideText("textui_test_G")
+   Wait(3000)
+   exports['g-textui']:showTextUI("textui_test", "Groot Development", "E")
+   Wait(2000)
+   exports['g-textui']:hideText("textui_test")
 end, false)
 
 -- local G = exports['g-bridgeV2']:GetGroot()
