@@ -21,3 +21,22 @@ AddEventHandler('g_application:getAllData', function()
    local data = MySQL.fetchAll.await('SELECT * FROM `test_db`')
    print(json.encode(data))
 end)
+-- RegisterCommand("testrob", function(source, args, rawCommand)
+--    exports['g-scoreboardV2-last']:SetHeistAvailability('fleecabankrobbery', true)
+
+--    Wait(6000)
+--    TriggerEvent('g-scoreboardv2:SetHeistAvailability', 'fleecabankrobbery', false)
+--    print('done')
+-- end, false)
+
+-- server side
+-- TriggerEvent('g-scoreboardv2:SetHeistAvailability', 'fleecabankrobbery', false)
+
+G = {}
+G.Inventory = {}
+
+
+function G.Inventory.AddItem(source, name, count, metadata, slot)
+   exports.ox_inventory:AddItem(source, name, count, metadata, slot)
+end
+
